@@ -1,0 +1,112 @@
+/* Указываем box sizing, обнуляем отступы */
+* {
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Определяем блочную модель для старых браузеров */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+img {
+  display: block;
+}
+
+/* Выставляем основные настройки body и html */
+body {
+  min-height: 100vh;
+
+  color: black;
+
+  font-family: 'Styrene UI', sans-serif;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  text-rendering: optimizespeed;
+}
+
+.html {
+  position: relative;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  height: 100%;
+
+  font-size: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+html is-blocked {
+  overflow: hidden;
+}
+
+html is-blocked-touched {
+  position: fixed;
+
+  overflow-y: scroll;
+
+  width: 100%;
+  height: auto;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Указываем понятную периодичность в потоке данных у article */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Избавляемся от стандартных разрывов и границ в таблице */
+table {
+  border-spacing: 0;
+
+  border-collapse: collapse;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
