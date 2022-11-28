@@ -1,0 +1,111 @@
+@import "constants/theme";
+
+.pageContent{
+    display: flex;
+    justify-content: center;
+}
+.auth{
+    height: 100vh;
+    font-family: $ff-os;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header{
+    font-weight: 400;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 1em;
+    font-size: 20px;
+}
+
+.label{
+    margin-top: 35px;
+}
+
+.labelText{
+    width: 100%;
+    font-size: 16px;
+    font-weight: $fw-os-regular;
+}
+
+.labelInput{
+    width: 90vw;
+    max-width: 500px;
+    background: rgba(0,0,0,0);
+    border-bottom: 1px solid #494949;
+    color: white;
+}
+
+.eyeContainer{
+    position: relative;
+}
+
+.eye{
+    position: absolute;
+    left: -25px;
+}
+
+.errorMsg{
+    color: $red-active;
+}
+
+.button {
+    width: 90vw;
+    max-width: 500px;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    border-radius: 20px;
+    background-color: $red-active;
+    font-weight: $fw-os-semi-bold;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    
+    &:active{
+        outline: 0;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        background: $red-disable;
+    }
+}
+
+.buttonGoogle{
+    margin-top: 15px;
+    color: black;
+    background: white;
+    &:active {
+        background: $gray;
+    }
+}
+
+.textGroupBetweenBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    .textBetweenBtn{
+        margin-top: 15px;
+        text-align: center;
+    }
+}
+
+.regText{
+    margin-top: 15px;
+    text-align: center;
+    span{
+
+    }
+}
+
+
+

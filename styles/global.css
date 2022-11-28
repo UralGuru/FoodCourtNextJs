@@ -31,9 +31,10 @@ img {
 
 /* Выставляем основные настройки body и html */
 body {
-  min-height: 100vh;
+  min-height: 95vh;
 
-  color: black;
+  color: white;
+  background: #232323;
 
   font-family: 'Styrene UI', sans-serif;
   line-height: 1.5;
@@ -99,6 +100,17 @@ table {
   border-spacing: 0;
 
   border-collapse: collapse;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
