@@ -52,6 +52,13 @@
     left: -25px;
 }
 
+.errorBlock{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 15px;
+}
+
 .errorMsg{
     color: $red-active;
 }
@@ -71,7 +78,7 @@
     color: white;
     display: flex;
     flex-direction: row;
-    
+
     &:active{
         outline: 0;
         user-select: none;

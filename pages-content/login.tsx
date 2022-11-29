@@ -5,11 +5,12 @@ import * as Yup from "yup";
 import {AiOutlineGoogle} from 'react-icons/ai';
 import {BsEye, BsEyeSlash} from 'react-icons/bs';
 
-// import { useDispatch, useSelector } from "react-redux";
-// import { login } from "../slices/authSlice";
-// import { clearMessage } from "../slices/messageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../store/slices/authSlice";
+import { clearMessage } from "../store/slices/authSlice";
 import s from "./auth.module.scss"
-import {loginType} from "../constants/types";
+import {AuthStateType, loginType} from "../constants/types";
+import AuthService from "../services/auth.service";
 
 export const LoginPage: FC = () => {
     // let navigate = useNavigate();
@@ -17,14 +18,15 @@ export const LoginPage: FC = () => {
     const [loading, setLoading] = useState(false);
     const [pswView, setPswView] = useState(false);
 
-    // const { isLoggedIn } = useSelector((state) => state.auth);
-    // const { message } = useSelector((state) => state.message);
-    //
-    // const dispatch = useDispatch();
-    //
-    // useEffect(() => {
-    //     dispatch(clearMessage());
-    // }, [dispatch]);
+    const user = useSelector((state: any) => state.auth);
+    // const { message } = useSelector((state: any) => state.message);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(clearMessage());
+    }, [dispatch]);
 
     const initialValues: loginType = {
         email: "",
@@ -37,21 +39,21 @@ export const LoginPage: FC = () => {
     });
 
     const handleLogin = (formValue: loginType) => {
-        console.log(formValue);
         setLoading(true);
 
-        // dispatch(login({email, password}))
-        //     .unwrap()
-        //     .then(() => {
-        //         navigate("/profile");
-        //     })
-        //     .catch(() => {
-        //         setLoading(false);
-        //     });
+        // @ts-ignore
+        dispatch(login(formValue))
+            .unwrap()
+            // .then(() => {
+            //     navigate("/profile");
+            // })
+            .catch(() => {
+                setLoading(false);
+            });
     };
     // if (isLoggedIn) {
     //     return <Navigate to="/profile" />;
-    // } 
+    // }
 
 
     return (
@@ -114,6 +116,22 @@ export const LoginPage: FC = () => {
                                     <div className={s.errorMsg}><ErrorMessage name="password" component="div"/></div>
                                 </div>
 
+                                {user.message && (
+                                    <div className={s.errorBlock}>
+                                        <div className={s.errorMsg}>
+                                            {(user.message === 'User has been successfully authenticated')
+                                                ? 'Успешная авторизация ;)'
+                                                : ((~(user.message).indexOf('User with email') || ~(user.message).indexOf('Invalid password'))
+                                                    ? 'Неверный логин или пароль'
+                                                    : user.message)
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                )}
+
+
                                 {/* SUBMIT */}
                                 <div>
                                     <button
@@ -140,7 +158,8 @@ export const LoginPage: FC = () => {
                         <button
                             className={`${s.button} ${s.buttonGoogle}`}
                             // disabled={loading}
-                            onClick={() => console.log('Google')}
+                            // onClick={() => AuthService.loginWidthGoogle()}
+                            onClick={() => console.log("Auth width Google")}
                         >
                             <AiOutlineGoogle style={{fontSize: 25, marginRight: 5}}/>
                             <div>Google</div>
@@ -148,15 +167,6 @@ export const LoginPage: FC = () => {
                     </div>
 
                     <div className={s.regText}>Все еще нет аккаунта? Создай его <a>здесь</a></div>
-
-
-                    {/*{message && (*/}
-                    {/*    <div className="form-group">*/}
-                    {/*        <div className="alert alert-danger" role="alert">*/}
-                    {/*            {message}*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*)}*/}
                 </div>
             </div>
         </>

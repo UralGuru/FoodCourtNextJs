@@ -24,6 +24,18 @@ const login = (logData:loginType) => {
         });
 };
 
+const loginWidthGoogle = () => {
+    return axios
+        .post(API_URL + "auth/account/external-login?provider=Google&backUrl=/home",)
+        .then((response) => {
+            if (response.data.username) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
+
+            return response.data;
+        });
+};
+
 const logout = () => {
     localStorage.removeItem("user");
     return axios.post(API_URL + "signout").then((response) => {
@@ -39,6 +51,7 @@ const getCurrentUser = () => {
 const AuthService = {
     register,
     login,
+    loginWidthGoogle,
     logout,
     getCurrentUser,
 }

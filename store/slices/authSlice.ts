@@ -1,9 +1,10 @@
 import {createAsyncThunk, createSlice, current} from '@reduxjs/toolkit'
 import AuthService from "../../services/auth.service";
-import {loginType} from "../../constants/types";
-import {setMessage} from "./messageSlice";
+import {AuthStateType, loginType} from "../../constants/types";
 
-const initialState = {
+
+
+const initialState: AuthStateType = {
     isLoggedIn: false,
     accessToken: null,
     errors: null,
@@ -20,11 +21,13 @@ export const login = createAsyncThunk(
     async (loginSliceData: loginType, thunkAPI) => {
 
         try {
+            // console.log('loginSliceData', loginSliceData)
             const data = await AuthService.login(loginSliceData);
-            console.log(data.message)
+            // console.log(data.message)
 
             return {user: data};
         } catch (error: any) {
+            // console.error(error)
             const message =
                 (error.response &&
                     error.response.data &&
@@ -38,10 +41,20 @@ export const login = createAsyncThunk(
     }
 );
 
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        // @ts-ignore
+        setMessage: (state, action) => {
+            return { message: action.payload };
+        },
+        // @ts-ignore
+        clearMessage: () => {
+            return { message: "" };
+        },
+    },
     extraReducers:  (builder) => {
         builder
             .addMatcher(
@@ -54,8 +67,9 @@ const userSlice = createSlice({
                     state.isSuccess = action.payload.user.isSuccess;
                     state.message = action.payload.user.message;
                     state.refreshToken = action.payload.user.refreshToken;
-                    console.log('--success--')
-                    console.log(current(state))})
+                    // console.log('--success--')
+                    // console.log(current(state))
+                })
             .addMatcher(
                 action => action.type.endsWith('/rejected'),
                 (state,)=>{
@@ -64,5 +78,9 @@ const userSlice = createSlice({
             )
     },
 })
+
+const { reducer, actions } = userSlice;
+
+export const {setMessage, clearMessage } = actions
 
 export default userSlice.reducer
