@@ -1,4 +1,4 @@
-@import "constants/theme";
+@import "../../constants/theme";
 
 .pageContent{
     display: flex;
@@ -111,7 +111,13 @@
     margin-top: 15px;
     text-align: center;
     a{
+        margin-left: 3px;
+        color: white;
+        text-decoration: none;
         border-bottom: 1px solid $gray;
+        outline: 0;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 

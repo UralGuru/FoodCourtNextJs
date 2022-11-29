@@ -1,8 +1,11 @@
-import {LoginPage} from "../pages-content/login";
-import {RegisterPage} from "../pages-content/register";
+import {useSelector} from "react-redux";
 
 export default function Home() {
+  const user = useSelector((state: any) => state.auth);
+
   return (
-      <LoginPage />
+      <>
+          Кафешки
+      </>
   )
 }

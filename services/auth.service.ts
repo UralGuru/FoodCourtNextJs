@@ -5,7 +5,14 @@ const API_URL = "http://food-court.tk/api/v1.0/";
 // const API_URL = "http://food-court.tk:8080/v1.0/";
 
 const register = (regData:registerType) => {
-    return axios.post(API_URL + "auth/registration", regData);
+    return axios.post(API_URL + "auth/registration", regData)
+        .then((response) => {
+        if (response.data.username) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+        }
+
+        return response.data;
+    });
 };
 
 const login = (logData:loginType) => {

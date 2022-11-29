@@ -4,24 +4,22 @@ import {Formik, Field, Form, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import {AiOutlineGoogle} from 'react-icons/ai';
 import {BsEye, BsEyeSlash} from 'react-icons/bs';
-
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/slices/authSlice";
-import { clearMessage } from "../store/slices/authSlice";
+import { useRouter } from 'next/navigation';
+
+import { login } from "../../store/slices/authSlice";
+import { clearMessage } from "../../store/slices/authSlice";
 import s from "./auth.module.scss"
-import {AuthStateType, loginType} from "../constants/types";
-import AuthService from "../services/auth.service";
+import {AuthStateType, loginType} from "../../constants/types";
+import AuthService from "../../services/auth.service";
+import Link from "next/link";
 
-export const LoginPage: FC = () => {
-    // let navigate = useNavigate();
-
+export default function LoginPage(){
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const user = useSelector((state: any) => state.auth);
     const [loading, setLoading] = useState(false);
     const [pswView, setPswView] = useState(false);
-
-    const user = useSelector((state: any) => state.auth);
-    // const { message } = useSelector((state: any) => state.message);
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         // @ts-ignore
@@ -51,9 +49,10 @@ export const LoginPage: FC = () => {
                 setLoading(false);
             });
     };
-    // if (isLoggedIn) {
-    //     return <Navigate to="/profile" />;
-    // }
+
+    if (user.isLoggedIn) {
+        return router.push('/')
+    }
 
 
     return (
@@ -166,7 +165,10 @@ export const LoginPage: FC = () => {
                         </button>
                     </div>
 
-                    <div className={s.regText}>Все еще нет аккаунта? Создай его <a>здесь</a></div>
+                    <div className={s.regText}>Все еще нет аккаунта? Создай его
+                        <Link href="./register">здесь</Link>
+
+                    </div>
                 </div>
             </div>
         </>
