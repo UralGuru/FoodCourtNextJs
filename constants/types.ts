@@ -3,7 +3,7 @@ export type loginType = {
     password: string
 }
 
-export type authType = {
+export type registerType = {
     name: string,
     phone: string,
     email: string,

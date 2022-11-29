@@ -9,7 +9,7 @@ import {BsEye, BsEyeSlash} from 'react-icons/bs';
 // import { login } from "../slices/authSlice";
 // import { clearMessage } from "../slices/messageSlice";
 import s from "./auth.module.scss"
-import {authType} from "../constants/types";
+import {registerType} from "../constants/types";
 
 export const RegisterPage: FC = () => {
     // let navigate = useNavigate();
@@ -26,7 +26,7 @@ export const RegisterPage: FC = () => {
     //     dispatch(clearMessage());
     // }, [dispatch]);
 
-    const initialValues: authType = {
+    const initialValues: registerType = {
         name: "",
         email: "",
         phone: "",
@@ -40,7 +40,7 @@ export const RegisterPage: FC = () => {
         password: Yup.string().required("Придумайте пароль"),
     });
 
-    const handleLogin = (formValue: authType) => {
+    const handleLogin = (formValue: registerType) => {
         console.log(formValue);
         setLoading(true);
 
